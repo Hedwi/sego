@@ -3,8 +3,8 @@ package sego
 
 import (
 	"bufio"
-	"embed"
 	"fmt"
+	"io/fs"
 	"log"
 	"math"
 	"os"
@@ -129,11 +129,10 @@ func (seg *Segmenter) LoadDictionary(files string) {
 	log.Println("sego词典载入完毕")
 }
 
-func (seg *Segmenter) LoadEmbedDictionary(files string, embedFS embed.FS) {
+func (seg *Segmenter) LoadEmbedDictionary(files string, embedFS fs.FS) {
 	seg.dict = NewDictionary()
 	for _, file := range strings.Split(files, ",") {
-		log.Printf("载入sego词典 %s", file)
-		fmt.Println(file)
+		log.Printf("载入embed sego词典 %s", file)
 		dictFile, err := embedFS.Open(file)
 		//defer dictFile.Close()
 		if err != nil {
